@@ -20,18 +20,6 @@ public class Produto {
 
 //    private transient Integer total; //Não vai ser inserido no banco
 
-//    public Produto(Long id, String descricao, Double valor, LocalDate dataCadastro) {
-//        super();
-//        this.id = id;
-//        this.descricao = descricao;
-//        this.valor = valor;
-//        this.dataCadastro = dataCadastro;
-//    }
-//
-//    public Produto() {
-//
-//    }
-
     public Long getId() {
         return id;
     }
@@ -73,4 +61,5 @@ public class Produto {
                 ", dataCadastro=" + dataCadastro +
                 '}';
     }
+
 }

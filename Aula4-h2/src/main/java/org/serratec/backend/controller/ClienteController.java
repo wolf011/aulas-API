@@ -1,7 +1,8 @@
 package org.serratec.backend.controller;
 
-import org.serratec.backend.entity.Produto;
-import org.serratec.backend.repository.ProdutoRepository;
+import jakarta.validation.Valid;
+import org.serratec.backend.entity.Cliente;
+import org.serratec.backend.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,54 +10,53 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/produtos")
-public class ProdutoController {
-
+@RequestMapping("/clientes")
+public class ClienteController {
     // Usada para fazer a injeção de dependências(vair criar os objetos)
     @Autowired
-    private ProdutoRepository repository;
+    private ClienteRepository repository;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto inserir(@RequestBody Produto produto) {
-        return repository.save(produto);
+    public Cliente inserir(@Valid @RequestBody Cliente cliente) {
+        return repository.save(cliente);
     }
 
     @PostMapping("/inseirVarios")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Produto> inserirVarios(@RequestBody List<Produto> produtos) {
-        return repository.saveAll(produtos);
+    public List<Cliente> inserirVarios(@RequestBody List<Cliente> clientes) {
+        return repository.saveAll(clientes);
     }
 
     @GetMapping
-    public List<Produto> listar() {
+    public List<Cliente> listar() {
         return repository.findAll();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Produto> listarPorId(@PathVariable Long id) {
-        Optional<Produto> produto = repository.findById(id);
-//        if (!produto.isPresent()) {
-        if (produto.isEmpty()) {
+    public ResponseEntity<Cliente> listarPorId(@PathVariable UUID id) {
+        Optional<Cliente> cliente = repository.findById(id);
+        if (cliente.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(produto.get());
+        return ResponseEntity.ok(cliente.get());
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
+    public ResponseEntity<Cliente> atualizar(@PathVariable UUID id, @RequestBody Cliente cliente) {
         if (repository.findById(id).isPresent()) {
-            produto.setId(id);
-            return ResponseEntity.ok(repository.save(produto));
+            cliente.setId(id);
+            return ResponseEntity.ok(repository.save(cliente));
         }
         return ResponseEntity.notFound().build();
     }
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> remover(@PathVariable Long id) {
+    public ResponseEntity<Void> remover(@PathVariable UUID id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         }
