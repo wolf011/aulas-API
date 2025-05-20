@@ -1,8 +1,11 @@
 package org.serratec.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 @Entity
 public class Veiculo {
@@ -22,6 +25,26 @@ public class Veiculo {
 
     @Embedded
     private Caracateristica caracateristica;
+
+    @OneToOne
+    @JoinColumn(name = "id_proprietario")
+    private Proprietario proprietario;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "veiculo")
+    private List<Manutencao> manutencoes;
+
+    public List<Manutencao> getManutencoes() {
+        return manutencoes;
+    }
+
+    public Proprietario getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Proprietario proprietario) {
+        this.proprietario = proprietario;
+    }
 
     public Long getId() {
         return id;

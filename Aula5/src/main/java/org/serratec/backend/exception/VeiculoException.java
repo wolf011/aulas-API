@@ -1,13 +1,13 @@
 package org.serratec.backend.exception;
 
-public class VeiculoExcepetion extends RuntimeException {
+public class VeiculoException extends RuntimeException {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    public VeiculoExcepetion(String message) {
+    public VeiculoException(String message) {
         super(message);
     }
 

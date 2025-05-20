@@ -2,7 +2,6 @@ package org.serratec.backend.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.serratec.backend.exception.EnumException;
-import org.serratec.backend.exception.VeiculoExcepetion;
 
 public enum Combustivel {
     DIESEL(1, "Diesel"),FLEX(2,"Flex"), GASOLINA(3, "Gasolina");

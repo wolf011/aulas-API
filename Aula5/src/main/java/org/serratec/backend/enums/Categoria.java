@@ -2,7 +2,6 @@ package org.serratec.backend.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.serratec.backend.exception.EnumException;
-import org.serratec.backend.exception.VeiculoExcepetion;
 
 public enum Categoria {
     SUV, HATCH, PICKUP, SEDAN, CONVERSIVEL, COUPE;
