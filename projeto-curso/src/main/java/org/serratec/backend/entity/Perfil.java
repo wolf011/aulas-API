@@ -6,30 +6,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Usuario {
+public class Perfil {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String nome;
 
-    private String email;
-
-    private String senha;
-
-    @OneToMany(mappedBy = "id.usuario")
+    @OneToMany(mappedBy = "id.perfil")
     private Set<UsuarioPerfil> usuarioPerfis = new HashSet<>();
 
     public Set<UsuarioPerfil> getUsuarioPerfis() {
         return usuarioPerfis;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public Long getId() {
@@ -46,13 +34,5 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
