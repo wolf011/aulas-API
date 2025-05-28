@@ -2,6 +2,7 @@ package org.serratec.backend.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.serratec.backend.entity.Usuario;
 import org.serratec.backend.entity.UsuarioPerfil;
 
@@ -19,6 +20,10 @@ public class UsuarioRequestDTO {
 
     private Set<UsuarioPerfil> usuarioPerfis = new HashSet<>();
 
+    @NotBlank
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP inválido")
+    private String cep;
+
     public UsuarioRequestDTO() {
     }
 
@@ -26,6 +31,14 @@ public class UsuarioRequestDTO {
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
         this.senha = usuario.getSenha();
+    }
+
+    public UsuarioRequestDTO(String nome, String email, String senha, Set<UsuarioPerfil> usuarioPerfis, String cep) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.usuarioPerfis = usuarioPerfis;
+        this.cep = cep;
     }
 
     public Set<UsuarioPerfil> getUsuarioPerfis() {
@@ -54,5 +67,13 @@ public class UsuarioRequestDTO {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 }

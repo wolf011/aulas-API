@@ -20,6 +20,10 @@ public class Usuario {
     @OneToMany(mappedBy = "id.usuario")
     private Set<UsuarioPerfil> usuarioPerfis = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
+
     public Set<UsuarioPerfil> getUsuarioPerfis() {
         return usuarioPerfis;
     }
@@ -54,5 +58,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

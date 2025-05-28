@@ -1,29 +1,24 @@
-package org.serratec.backend.entity;
+package org.serratec.backend.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.serratec.backend.entity.Funcionario;
 
 import java.time.LocalDate;
 
-@Entity
-public class Funcionario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class FuncionarioResponsetDTO {
 
+    private Long id;
     private String nome;
     private LocalDate dataNascimento;
     private Double salario;
-    private String email;
 
-    public String getEmail() {
-        return email;
+    public FuncionarioResponsetDTO() {
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public FuncionarioResponsetDTO(Funcionario funcionario) {
+        this.id = funcionario.getId();
+        this.nome = funcionario.getNome();
+        this.dataNascimento = funcionario.getDataNascimento();
+        this.salario = funcionario.getSalario();
     }
 
     public Long getId() {
