@@ -21,7 +21,7 @@ public class UsuarioRequestDTO {
     private Set<UsuarioPerfil> usuarioPerfis = new HashSet<>();
 
     @NotBlank
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP inválido")
+    @Pattern(regexp = "\\d{8}", message = "CEP inválido")
     private String cep;
 
     public UsuarioRequestDTO() {

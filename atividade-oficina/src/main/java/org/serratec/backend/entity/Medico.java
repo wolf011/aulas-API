@@ -1,52 +1,47 @@
 package org.serratec.backend.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Medico {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	private String nome;
 
-    private String nome;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "medico")
+	private List<Consulta> consultas;
 
-    @OneToMany
-    @JoinColumn(name = "medico")
-    private List<Consulta> consultas;
+	
+	
+	public List<Consulta> getConsultas() {
+		return consultas;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public List<Consulta> getConsultas() {
-        return consultas;
-    }
-
-    public void setConsultas(List<Consulta> consultas) {
-        this.consultas = consultas;
-    }
-
-    @Override
-    public String toString() {
-        return "Medico: " +
-                " id = " + id +
-                ", nome = '" + nome + '\'' +
-                ", consultas = " + consultas;
-    }
 }

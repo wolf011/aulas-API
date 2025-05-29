@@ -1,78 +1,88 @@
 package org.serratec.backend.entity;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+
 @Entity
 public class Consulta {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	private LocalDate dataConsulta;
 
-    private LocalDate dataConsulta;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "id_medico")
+	private Medico medico;
 
-    @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "id_paciente")
+	private Paciente paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "medico_id")
-    private Medico medico;
+	@OneToMany(mappedBy = "consulta")
+	private List<Procedimentos> procedimentos;
 
-    @OneToMany
-    @JoinColumn(name = "procedimento_id")
-    private List<Procedimento> procedimentos;
+	@Transient
+	private double totalGeral = 0.0;
 
-    public Long getId() {
-        return id;
-    }
+	public double getTotalGeral() {
+		for (Procedimentos procedimento : procedimentos) {
+			totalGeral = totalGeral + procedimento.getSubTotal();
+		}
+		return totalGeral;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setTotalGeral(double totalGeral) {
+		this.totalGeral = totalGeral;
+	}
 
-    public LocalDate getDataConsulta() {
-        return dataConsulta;
-    }
+	public List<Procedimentos> getProcedimentos() {
+		return procedimentos;
+	}
 
-    public void setDataConsulta(LocalDate dataConsulta) {
-        this.dataConsulta = dataConsulta;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Paciente getPaciente() {
-        return paciente;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
+	public LocalDate getDataConsulta() {
+		return dataConsulta;
+	}
 
-    public Medico getMedico() {
-        return medico;
-    }
+	public void setDataConsulta(LocalDate dataConsulta) {
+		this.dataConsulta = dataConsulta;
+	}
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
+	public Medico getMedico() {
+		return medico;
+	}
 
-    public List<Procedimento> getProcedimentos() {
-        return procedimentos;
-    }
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
 
-    public void setProcedimentos(List<Procedimento> procedimentos) {
-        this.procedimentos = procedimentos;
-    }
+	public Paciente getPaciente() {
+		return paciente;
+	}
 
-    @Override
-    public String toString() {
-        return "Consulta: " +
-                " id: " + id +
-                ", dataConsulta: " + dataConsulta +
-                ", paciente: " + paciente +
-                ", medico: " + medico +
-                ", procedimentos: " + procedimentos;
-    }
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
 }

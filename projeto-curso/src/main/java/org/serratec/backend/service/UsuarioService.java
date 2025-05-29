@@ -52,6 +52,7 @@ public class UsuarioService {
     @Transactional
     public UsuarioResponseDTO inserir(UsuarioRequestDTO usuario) {
         Optional<Usuario> u =  repository.findByEmail(usuario.getEmail());
+
         enderecoService.buscar(usuario.getCep());
         Endereco endereco = enderecoService.buscarEndereco(usuario.getCep());
 
