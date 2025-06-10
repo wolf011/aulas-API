@@ -36,9 +36,8 @@ public class UsuarioService {
     @Autowired
     private EnderecoService enderecoService;
 
-
-//    @Autowired
-//    private MailConfig mailConfig;
+    @Autowired
+    private MailConfig mailConfig;
 
     public List<UsuarioResponseDTO> listar(){
         List<Usuario> usuarios = repository.findAll();
@@ -76,7 +75,7 @@ public class UsuarioService {
         usuarioEntity = repository.save(usuarioEntity);
         usuarioPerilRepository.saveAll(usuario.getUsuarioPerfis());
 
-//        mailConfig.enviar(usuarioEntity.getEmail(), "Confirmação de Cadastro", usuario.toString());
+        mailConfig.enviar(usuarioEntity.getEmail(), "Confirmação de Cadastro", usuario.toString());
 
         return new UsuarioResponseDTO(usuarioEntity.getId(), usuarioEntity.getNome(), usuarioEntity.getEmail());
 
